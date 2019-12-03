@@ -25,9 +25,11 @@ public class PersonaController {
 
 	@GetMapping("/save/{id}")
 	public String showSave(@PathVariable("id") Long id, Model model) {
-		if (id != null && id != 0)
+		if (id != null && id != 0) {
 			model.addAttribute("persona", personaServiceAPI.obtener(id));
-		else {
+			model.addAttribute("accion", "Editar Persona");
+		}else {
+			model.addAttribute("accion", "Agregar Persona");
 			model.addAttribute("persona", new Persona());
 		}
 		return "save";
