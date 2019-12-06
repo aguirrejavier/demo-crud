@@ -21,7 +21,7 @@ class DemoCrudApplicationTests {
 	void contextLoads() {
 		
 		Usuario nuevo = new Usuario();
-		nuevo.setUsuario("admin2");
+		nuevo.setUsuario("admin");
 		nuevo.setPassword(ps.encode("123"));
 		Usuario usuarioAlmacenado = userDao.save(nuevo);
 		assertEquals(nuevo.getUsuario(), usuarioAlmacenado.getUsuario());
