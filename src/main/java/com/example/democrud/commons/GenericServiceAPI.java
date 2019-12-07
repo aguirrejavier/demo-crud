@@ -13,5 +13,7 @@ public interface GenericServiceAPI<T, ID extends Serializable> {
 	T obtener(ID id);
 	
 	List<T> obtenerTodos();
+	
+	boolean existe(ID id);
 
 }

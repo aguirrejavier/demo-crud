@@ -34,6 +34,13 @@ public abstract class GenericServiceImpl<T,ID extends Serializable> implements G
 		obtenerDao().findAll().forEach(obj -> lista.add(obj));
 		return lista;
 	}
+	@Override
+	public boolean existe(ID id) {
+		if(obtenerDao().existsById(id)) {
+			return true;
+		}
+		else return false;
+	}
 	
 	public abstract CrudRepository<T, ID> obtenerDao();
 }

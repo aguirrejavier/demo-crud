@@ -1,0 +1,43 @@
+body{
+    background: url(../img/fondoIndex.jpg) no-repeat center center fixed;
+    background-size: cover; // se  ajusta a la medida de la ventana
+}
+
+.main-section{  //posicion del contenedor
+    margin:0 auto;
+    margin-top:10%;
+    padding: 0;
+}
+
+.modal-content{
+    background-color: #95B2E8;
+    opacity: .85;
+    padding: 0 20px;
+    box-shadow: 0px 0px 3px #848484; 
+/*     sombra */
+}
+
+.form-group input{
+    height: 42px;
+    font-size: 18px;
+    border:0;
+    padding-left: 54px;
+    border-radius: 5px;
+}
+/* // configuracion de los iconos form group */
+.form-group::before{ 
+    font-family: "Font Awesome\ 5 Free";
+    position: absolute;
+    left: 28px;
+    font-size: 22px;
+    padding-top:4px;
+}
+/* icono usuario */
+.form-group#user-group::before{  
+    content: "\f007";
+}
+
+/* icono password */
+.form-group#contrasena-group::before{ 
+    content: "\f023";
+}
