@@ -23,7 +23,7 @@
 	th:href="@{/css/index.css}">
 
 </head>
-<body style="background-color: #000000;">
+<body style="background-color: #FFFFFF;">
 	<div class="modal-dialog text-center">
 		<div class="col-sm-12 main-section">
 			<div class="modal-content">
@@ -33,7 +33,7 @@
 
 				<h2>Iniciar Sesion</h2>
 
-				<form class="col-12" th:action="@{/login}" method="post" >
+				<form class="col-12" th:action="@{/login}" method="post">
 					<div class="form-group" id="user-group">
 						<input type="text" class="form-control"
 							placeholder="Nombre de usuario" th:name="usuario" />
@@ -48,16 +48,19 @@
 				</form>
 
 				<div th:if="${param.error}" class="alert alert-danger">
-					Invalid username and password.</div>
-				<div th:if="${param.logout}" class="alert alert-success">You
-					have been logged out.</div>
+					Usuario y Contraseña invalidos.</div>
+
+				<div th:if="${logout}" class="alert alert-success">Ha cerrado
+					sesion.</div>
 				<div>
 					<a href="/registrarse" class="btn btn-dark mt-1 mb-3 col-sm-4 "
 						role="button">Registrarse</a>
 
 				</div>
+
 			</div>
 		</div>
+
 	</div>
 </body>
 </html>

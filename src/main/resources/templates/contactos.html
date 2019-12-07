@@ -5,43 +5,49 @@
 <title>Personas</title>
 
 <!-- Bootstrap CSS -->
-<link href="../static/css/bootstrap.css" rel="stylesheet" th:href="@{/css/bootstrap.css}">
+<link href="../static/css/bootstrap.css" rel="stylesheet"
+	th:href="@{/css/bootstrap.css}">
 </head>
 <body>
-		<div class="container">
-			<br>
-			
-			
-				<h2 th:if="${list.isEmpty()}">Lista de contactos vacia</h2>
-				<div th:if="${!list.isEmpty()}">
-					<h2> Contactos</h2>
-					<table class="table">
-						<thead>
-							<tr>
-								<th>Nombre</th>
-								<th>Apellido</th>
-								<th>Direccion</th>
-								<th>Telefono</th>
-								<th></th>
-								<th></th>			
-							</tr>
-						</thead>
-						<tbody>
-								<tr th:each = "contacto : ${list}">
-								<td th:text="${contacto.nombre}">
-								<td th:text="${contacto.apellido}">
-								<td th:text="${contacto.direccion}">
-								<td th:text="${contacto.telefono}">	
-								<td><a class="btn btn-info" th:href="@{/save/{id}(id=${contacto.id})}">Editar</a></td>	
-								<td><a class="btn btn-danger" th:href="@{/delete/{id}(id=${contacto.id})}">Eliminar</a></td>
-								</tr>
-						</tbody>
-					</table>
-				</div>
-				<div>
-				<a href="/save/0" class="btn btn-primary">Agregar contacto</a>
-				</div>
-			</div>
-	
+	<div class="container">
+		<br>
+		<div>
+			<a th:href="@{/cerrarSesion}" class="btn btn-danger mb-4">Cerrar Sesion</a>
+		</div>
+
+		<h2 th:if="${list.isEmpty()}">Lista de contactos vacia</h2>
+		<div th:if="${!list.isEmpty()}">
+			<h2>Contactos</h2>
+			<table class="table">
+				<thead class="thead-dark">
+					<tr>
+						<th>Nombre</th>
+						<th>Apellido</th>
+						<th>Direccion</th>
+						<th>Telefono</th>
+						<th></th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="contacto : ${list}" class="table-secondary">
+						<td th:text="${contacto.nombre}">
+						<td th:text="${contacto.apellido}">
+						<td th:text="${contacto.direccion}">
+						<td th:text="${contacto.telefono}">
+						<td><a class="btn btn-info"
+							th:href="@{/save/{id}(id=${contacto.id})}">Editar</a></td>
+						<td><a class="btn btn-danger"
+							th:href="@{/delete/{id}(id=${contacto.id})}">Eliminar</a></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div>
+			<a href="/save/0" class="btn btn-primary">Agregar contacto</a>
+		</div>
+		
+	</div>
+
 </body>
 </html>

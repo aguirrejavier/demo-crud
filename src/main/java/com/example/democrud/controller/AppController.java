@@ -29,21 +29,19 @@ public class AppController {
 	private UsuarioServiceAPI usuarioServiceAPI;
 	@Autowired
 	private BCryptPasswordEncoder bcrypt;
-	
-	
-	@GetMapping({"/","/login"})
-	public String mostrarIndex(Model model){
 
+	@GetMapping({ "/", "/login" })
+	public String mostrarIndex(Model model) {
 		return "index";
 	}
-	
+
 	@GetMapping("/registrarse")
 	public String mostrarRegistrar(Model model) {
-		model.addAttribute("usuario", new Usuario()); //instancia un nuevo usuario para registrarse
+		model.addAttribute("usuario", new Usuario()); // instancia un nuevo usuario para registrarse
 		model.addAttribute("msgRegistro", "");
 		return "registrarse";
 	}
-	
+
 	@PostMapping("/registraruser")
 	public String showRegistro(Usuario user, Model model) {
 		if (!user.getUsuario().isEmpty() && !user.getPassword().isEmpty()) {
@@ -51,13 +49,12 @@ public class AppController {
 				user.setPassword(bcrypt.encode(user.getPassword()));
 				usuarioServiceAPI.guardar(user);
 //				model.addAttribute("registroUser", "Usuario registrado correctamente");
-				
+
 				return "index";
-			}else {
+			} else {
 				model.addAttribute("msgRegistro", "Usuario ya existente");
 			}
-		}
-		else 
+		} else
 			model.addAttribute("msgRegistro", "User y password no pueden ser vacios");
 		return "registrarse";
 	}
@@ -65,8 +62,8 @@ public class AppController {
 	@RequestMapping("/contactos")
 	public String contactos(Model model) {
 		List<Contacto> listaFiltrada = new ArrayList<Contacto>();
-		String user= getAuthentication().getName();
-		
+		String user = getAuthentication().getName();
+
 		for (Contacto contacto : contactoServiceAPI.obtenerTodos()) {
 			if (contacto.getUsuario().equals(user)) {
 				listaFiltrada.add(contacto);
@@ -79,12 +76,16 @@ public class AppController {
 	@GetMapping("/save/{id}")
 	public String showSave(@PathVariable("id") Long id, Model model) {
 		
-
+		String userlog = getAuthentication().getName(); 
+		
 		if (id != null && id != 0 ) {
 			
+			if(!userlog.equals(contactoServiceAPI.obtener(id).getUsuario())) {
+				return "redirect:/contactos";
+			}
 			model.addAttribute("contacto", contactoServiceAPI.obtener(id));
 			model.addAttribute("accion", "Editar Contacto");
-		}else {
+		} else {
 			model.addAttribute("accion", "Agregar Contacto");
 			model.addAttribute("contacto", new Contacto());
 		}
@@ -103,8 +104,15 @@ public class AppController {
 		contactoServiceAPI.eliminar(id);
 		return "redirect:/contactos";
 	}
-	
-	private Authentication getAuthentication() { 
-        return SecurityContextHolder.getContext().getAuthentication();
+
+	@GetMapping("/cerrarSesion")
+	public String cerrarSesion(Model model) {
+		getAuthentication().setAuthenticated(false); // borrar el logueo del usuario :o
+		model.addAttribute("logout", true);
+		return "index";
+	}
+
+	private Authentication getAuthentication() {
+		return SecurityContextHolder.getContext().getAuthentication();
 	}
 }
